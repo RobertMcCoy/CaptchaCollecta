@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using MITCaptcha.Controllers;
+using MITCaptcha.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using FakeItEasy;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MITCaptcha.Tests
 {
@@ -11,11 +15,11 @@ namespace MITCaptcha.Tests
     public class TheCaptchaController
     {
         [TestMethod]
-        public async Task HasAnIndex()
+        public void HasAnIndex()
         {
-            CaptchaController controller = new CaptchaController();
-            //var result = await controller.Index();
+            HomeController controller = new HomeController(A.Fake<IHostingEnvironment>());
+            var result = controller.Index() as ViewResult;
+            Assert.IsInstanceOfType(result.Model, typeof(SolverViewModel));
         }
-
     }
 }

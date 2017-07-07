@@ -33,7 +33,7 @@ namespace MITCaptcha.Services
             return captchaProblems;
         }
 
-        public object DecodeCaptchaRequest(CaptchaItem captchaItem)
+        public string DecodeCaptchaRequest(CaptchaItem captchaItem)
         {
             var base64EncodedBytes = Convert.FromBase64String(captchaItem.JpegBase64.Replace("\\",""));
             return Encoding.UTF8.GetString(base64EncodedBytes);
